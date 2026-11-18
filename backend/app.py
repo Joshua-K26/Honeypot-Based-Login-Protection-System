@@ -1346,7 +1346,7 @@ def admin_dashboard():
 
 
    
-        active_sessions_last_hour = DecoySession.query.filter(
+    active_sessions_last_hour = DecoySession.query.filter(
         DecoySession.entry_time >= one_hour_ago
     ).count()
 
