@@ -1,0 +1,186 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Settings — Honeypot Monitor{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_settings.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="settings-wrapper">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Settings</h1>
+            <p class="page-sub">Manage your security system preferences and account actions.</p>
+        </div>
+        <div class="admin-chip">
+            <div class="admin-chip-icon">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <div>
+                <strong>Admin</strong>
+                <small>Super Administrator</small>
+            </div>
+            <i class="fas fa-chevron-down chip-arrow"></i>
+        </div>
+    </div>
+
+    <!-- Unblock IP Addresses Card -->
+    <div class="settings-card">
+
+        <div class="card-left">
+            <div class="card-icon-wrap green-wrap">
+                <i class="fas fa-lock-open"></i>
+            </div>
+            <h3>Unblock IP Addresses</h3>
+            <p>Unblock IP addresses that were previously blocked from accessing the system.</p>
+        </div>
+
+        <div class="card-right">
+            <table class="ip-table">
+                <thead>
+                    <tr>
+                        <th>IP Address</th>
+                        <th>Blocked On</th>
+                        <th>Reason</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+{% for blocked in blocked_ips %}
+
+<tr>
+
+    <td>{{ blocked.ip_address }}</td>
+
+    <td>{{ blocked.blocked_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+
+    <td>{{ blocked.reason }}</td>
+
+    <td>
+
+        <button
+            class="unblock-btn"
+            onclick="unblockIP(this,'{{ blocked.ip_address }}')">
+
+            <i class="fas fa-lock-open"></i>
+
+            Unblock
+
+        </button>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+{% if blocked_ips|length == 0 %}
+
+<tr>
+
+    <td colspan="4" style="text-align:center;color:#6b7280;">
+
+        No blocked IP addresses.
+
+    </td>
+
+</tr>
+
+{% endif %}
+
+</tbody>
+            </table>
+
+            <p class="hint-text">
+                <i class="fas fa-circle-info"></i>
+                Click <strong>"Unblock"</strong> to allow the IP address to access the system again.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Log Out Card -->
+    <div class="settings-card">
+
+        <div class="card-left">
+            <div class="card-icon-wrap red-wrap">
+                <i class="fas fa-right-from-bracket"></i>
+            </div>
+            <h3>Log Out</h3>
+            <p>Securely log out of the admin dashboard. You will be redirected to the login page.</p>
+        </div>
+
+        <div class="card-right logout-right">
+
+            <div class="important-box">
+                <p class="important-title">
+                    <i class="fas fa-triangle-exclamation"></i> Important
+                </p>
+                <p class="important-text">
+                    Logging out will end your current admin session for security reasons.
+                </p>
+            </div>
+
+            <a href="{{ url_for('admin_logout') }}" class="logout-btn">
+                <i class="fas fa-right-from-bracket"></i> Log Out
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="page-footer">
+        <span>© 2026 Reader's Odyssey. All rights reserved.</span>
+        <span>Admin Security System v1.0</span>
+    </div>
+
+</div>
+
+<script>
+   function unblockIP(btn, ip){
+
+    if(!confirm("Unblock " + ip + "?")){
+        return;
+    }
+
+    fetch("/admin/unblock-ip", {
+
+        method: "POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body: JSON.stringify({
+            ip: ip
+        })
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if(data.success){
+
+            btn.closest("tr").remove();
+
+        }else{
+
+            alert("Unable to unblock IP.");
+
+        }
+
+    });
+
+} 
+</script>
+
+{% endblock %}

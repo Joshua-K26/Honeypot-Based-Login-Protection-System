@@ -1,0 +1,250 @@
+.resources-wrapper { padding: 4px 0 40px; }
+
+.page-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin-bottom: 4px;
+}
+
+.page-sub { font-size: 12px; color: #64748b; margin-bottom: 20px; }
+
+/* ======================
+   STAT CARDS
+====================== */
+
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.stat-card {
+    background: #111827;
+    border-radius: 12px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.stat-val {
+    font-size: 28px;
+    font-weight: 800;
+    color: #f1f5f9;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.delta {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.delta.green { color: #34d399; }
+
+/* ======================
+   TABLE
+====================== */
+
+.table-card {
+    background: #111827;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.resources-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.resources-table th {
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    text-align: left;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    white-space: nowrap;
+}
+
+.resources-table td {
+    font-size: 13px;
+    color: #94a3b8;
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.resources-table tbody tr:last-child td { border-bottom: none; }
+.resources-table tbody tr:hover td { color: #e2e8f0; background: rgba(255,255,255,0.02); }
+
+/* ======================
+   BOTTOM ROW
+====================== */
+
+.bottom-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 16px;
+}
+
+.chart-card, .donut-card {
+    background: #111827;
+    border-radius: 14px;
+    padding: 22px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 18px;
+}
+
+/* Bar Chart */
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.bar-item { display: flex; flex-direction: column; gap: 4px; }
+
+.bar-label {
+    font-size: 11px;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bar-fill {
+    height: 20px;
+    background: #22c55e;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.bar-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e2e8f0;
+    min-width: 20px;
+}
+
+.bar-axis {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: 4px;
+}
+
+.bar-axis span { font-size: 10px; color: #475569; }
+
+/* Donut Chart */
+.donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: center;
+}
+
+.donut-svg { width: 160px; height: 160px; flex-shrink: 0; }
+
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.blue-dot   { background: #3b82f6; }
+.green-dot  { background: #22c55e; }
+.orange-dot { background: #f59e0b; }
+
+.legend-val {
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-left: auto;
+    padding-left: 16px;
+}
+
+/* Resource Type Badges */
+
+.type-badge{
+
+    display:inline-block;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    text-align:center;
+
+}
+
+/* Article */
+
+.type-badge.article{
+
+    background:rgba(59,130,246,.18);
+
+    color:#60a5fa;
+
+}
+
+/* Report */
+
+.type-badge.report{
+
+    background:rgba(34,197,94,.18);
+
+    color:#4ade80;
+
+}
+
+/* Magazine */
+
+.type-badge.magazine{
+
+    background:rgba(245,158,11,.18);
+
+    color:#fbbf24;
+
+}

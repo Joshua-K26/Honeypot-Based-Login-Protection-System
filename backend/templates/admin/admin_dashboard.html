@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honeypot Monitoring Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+</head>
+<body>
+
+<div class="admin-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="admin-sidebar">
+
+        <div class="admin-brand">
+            <div class="brand-icon"><i class="fas fa-shield-halved"></i></div>
+            <div>
+                <div class="brand-name">Honeypot</div>
+                <div class="brand-sub">Monitor</div>
+            </div>
+        </div>
+
+        <ul class="admin-menu">
+            <li class="active"><i class="fas fa-gauge"></i> Dashboard</li>
+            
+            <li onclick="window.location='{{ url_for('admin_resources') }}'">
+                <i class="fas fa-folder-open"></i> Resources
+            </li>
+            <li onclick="window.location='{{ url_for('admin_logs') }}'">
+                <i class="fas fa-list"></i> Logs
+            </li>
+            <li onclick="window.location='{{ url_for('admin_analytics') }}'">
+                <i class="fas fa-chart-line"></i> Analytics
+            </li>
+            <li onclick="window.location='{{ url_for('admin_settings') }}'">
+                <i class="fas fa-gear"></i> Settings
+            </li>
+        </ul>
+
+        <div class="admin-user">
+            <img src="https://i.pravatar.cc/36?img=59" alt="Admin">
+            <div>
+                <strong>Admin</strong>
+                <small>Administrator</small>
+            </div>
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
+    </aside>
+
+    <!-- ══ MAIN ══ -->
+    <main class="admin-main">
+
+        <!-- TOP BAR -->
+        <div class="admin-topbar">
+            <div>
+                <h1 class="dash-title">Honeypot Monitoring Dashboard</h1>
+                <p class="dash-sub">Real-time overview of attacker activity in the decoy environment</p>
+            </div>
+            <div class="topbar-right">
+                <div class="date-pill">
+                    <i class="fas fa-calendar"></i> {{ current_time.strftime("%B %d, %Y • %I:%M %p") }}
+                </div>
+                <div class="notif-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-dot"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAT CARDS ROW -->
+        <div class="stat-cards">
+
+<div class="stat-card green"
+     onclick="window.location='{{ url_for('activesessions') }}'">
+
+    <div class="stat-top">
+                    <div>
+                        <p class="stat-label">ACTIVE SESSIONS</p>
+                        <h2 class="stat-val">{{ active_sessions }}</h2>
+                        <p class="stat-delta green-text">+{{ active_sessions_last_hour }} since last hour</p>
+                    </div>
+                    <div class="sparkline green-spark">
+                        <svg viewBox="0 0 80 40" preserveAspectRatio="none">
+                            <polyline points="0,35 15,28 25,30 35,15 50,20 65,10 80,5"
+                                fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+</a>
+                
+
+            <div class="stat-card blue">
+                <div class="stat-top">
+                    <div>
+                        <p class="stat-label">LOGIN ATTEMPTS</p>
+                        <h2 class="stat-val">{{ login_attempts }}</h2>
+                        <p class="stat-delta blue-text">+{{ login_attempts_last_hour }} since last hour</p>
+                    </div>
+                    <div class="sparkline blue-spark">
+                        <svg viewBox="0 0 80 40" preserveAspectRatio="none">
+                            <polyline points="0,30 10,25 20,32 35,10 50,18 65,8 80,12"
+                                fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card purple">
+                <div class="stat-top">
+                    <div>
+                        <p class="stat-label">DOWNLOADS</p>
+                        <h2 class="stat-val">{{ downloads }}</h2>
+                        <p class="stat-delta purple-text">+{{ downloads_last_hour }} since last hour</p>
+                    </div>
+                    <div class="sparkline purple-spark">
+                        <svg viewBox="0 0 80 40" preserveAspectRatio="none">
+                            <polyline points="0,28 15,20 30,25 45,12 60,18 80,6"
+                                fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card yellow">
+                <div class="stat-top">
+                    <div>
+                        <p class="stat-label">PAGE VIEWS</p>
+                        <h2 class="stat-val">{{ page_views }}</h2>
+                        <p class="stat-delta yellow-text">+{{ page_views_last_hour }} since last hour</p>
+                    </div>
+                    <div class="sparkline yellow-spark">
+                        <svg viewBox="0 0 80 40" preserveAspectRatio="none">
+                            <polyline points="0,32 10,28 25,22 35,25 50,14 65,16 80,8"
+                                fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card teal">
+                <div class="stat-top">
+                    <div>
+                        <p class="stat-label">BOOKMARKS</p>
+                        <h2 class="stat-val">{{ bookmarks }}</h2>
+                        <p class="stat-delta teal-text">+{{ bookmarks_last_hour }} since last hour</p>
+                    </div>
+                    <div class="sparkline teal-spark">
+                        <svg viewBox="0 0 80 40" preserveAspectRatio="none">
+                            <polyline points="0,30 20,22 35,26 50,14 65,18 80,10"
+                                fill="none" stroke="#2dd4bf" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card red">
+                <div class="stat-top">
+                    <div>
+                        <p class="stat-label">ALERTS</p>
+                        <h2 class="stat-val">{{ alerts }}</h2>
+                        <p class="stat-delta red-text high-risk">+{{ alerts_last_hour }} since last hour</p>
+                    </div>
+                    <div class="sparkline red-spark">
+                        <svg viewBox="0 0 80 40" preserveAspectRatio="none">
+                            <polyline points="0,20 15,30 25,15 40,28 55,10 70,22 80,8"
+                                fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MIDDLE ROW -->
+        <div class="middle-row">
+
+            <!-- Live Sessions Table -->
+            <div class="live-sessions-card">
+                <div class="card-header">
+                    <h3>Live Sessions</h3>
+                    <a href="{{ url_for('activesessions') }}" class="view-all">View All</a>
+                </div>
+
+                <table class="sessions-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>IP Address</th>
+                            <th>Entry Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+{% for session in live_sessions %}
+
+<tr>
+
+    <td>
+    <a href="{{ url_for('admin_sessions',
+                        session_id=session.session_id) }}">
+        {{ session.fake_username }}
+    </a>
+</td>
+
+    <td>{{ session.ip_address }}</td>
+
+    <td>
+        {{ session.entry_time.strftime("%I:%M %p") }}
+    </td>
+
+    <td>
+    <span class="status-badge
+        {% if session.status == 'Active' %}
+            active
+        {% elif session.status == 'Terminated' %}
+            terminated
+        {% else %}
+            blocked
+        {% endif %}
+    ">
+        {{ session.status }}
+    </span>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+                </table>
+
+                <p class="sessions-count">Showing {{ live_sessions|length }} active sessions</p>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity-card">
+                <div class="card-header">
+                    <h3>Recent Activity</h3>
+                </div>
+
+                <div class="activity-list">
+
+{% for activity in recent_activity %}
+
+<div class="activity-item">
+
+    <div class="activity-time">
+
+        <span class="time">
+
+            {{ activity.time.strftime("%H:%M") }}
+
+        </span>
+
+        <span class="dot
+
+        {% if activity.action=="download" %}
+            green-dot
+
+        {% elif activity.action=="bookmark" %}
+            yellow-dot
+
+        {% elif activity.action=="view" %}
+            blue-dot
+
+        {% else %}
+            red-dot
+        {% endif %}
+
+        "></span>
+
+    </div>
+
+    <div class="activity-info">
+
+        <p class="activity-action">
+
+            <strong>
+
+            {{ activity.action|capitalize }}
+
+            </strong>
+
+        </p>
+
+        <p class="activity-detail">
+
+            {{ activity.resource }}
+
+        </p>
+
+        <p class="activity-meta">
+
+            {{ activity.username }}
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+                <a href="{{ url_for('admin_logs') }}" class="view-all-activity">View All Activity →</a>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM ROW -->
+        <div class="bottom-row">
+
+            <!-- Most Targeted Resources -->
+<div class="resources-card">
+
+    <div class="card-header">
+        <h3>Most Targeted Resources</h3>
+    </div>
+
+    <div class="resource-bars">
+
+        {% if resource_stats %}
+
+            {% set max_hits = resource_stats[0].hits %}
+
+            {% for resource in resource_stats %}
+
+            <div class="resource-bar-item">
+
+                <p class="resource-name">
+                    {{ resource.title }}
+                </p>
+
+                <div class="bar-wrap">
+
+                    <div
+                        class="bar"
+                        style="width: {{ (resource.hits / max_hits) * 100 }}%;">
+                    </div>
+
+                </div>
+
+                <span class="bar-count">
+                    {{ resource.hits }}
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p style="color:#94a3b8;font-size:13px;">
+                No targeted resources recorded yet.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    <p style="margin-top:14px;color:#64748b;font-size:12px;">
+        Ranked by attacker interactions.
+    </p>
+
+</div>
+</main>
+</div>
+
+</body>
+</html>

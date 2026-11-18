@@ -1,0 +1,137 @@
+{% extends "decoy_base.html" %}
+
+{% block title %}My Profile — Reader's Odyssey{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/decoy_profile.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-wrapper">
+
+    <!-- LEFT: Profile Card -->
+    <div class="profile-card">
+
+        <div class="avatar-wrap">
+            <img src="https://i.pravatar.cc/100?img=10" alt="Avatar" class="profile-avatar">
+        </div>
+
+        <h2 class="profile-name">{{ username }}</h2>
+        <p class="profile-badge">⭐ Premium Member</p>
+        <p class="profile-since">Member since May 2025</p>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat">
+                <h3>48</h3>
+                <span>Articles Read</span>
+            </div>
+            <div class="stat">
+                <h3>7</h3>
+                <span>Magazines</span>
+            </div>
+            <div class="stat">
+                <h3>12</h3>
+                <span>Bookmarks</span>
+            </div>
+            <div class="stat">
+                <h3>3</h3>
+                <span>Downloads</span>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="profile-tabs">
+            <button class="ptab active" onclick="switchTab('info', this)">Profile Info</button>
+            <button class="ptab" onclick="switchTab('preferences', this)">Preferences</button>
+            <button class="ptab" onclick="switchTab('privacy', this)">Privacy</button>
+        </div>
+
+        <!-- Profile Info Tab -->
+        <div class="tab-content" id="tab-info">
+
+            <div class="info-row">
+                <span class="info-label">Full Name</span>
+                <span class="info-value">{{ username }}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value">
+                    {{ username | lower }}@readersodyssey.com
+                    <i class="fas fa-chevron-down" style="font-size:11px; color:#94a3b8; margin-left:6px;"></i>
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Location</span>
+                <span class="info-value">Nairobi, Kenya</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">About Me</span>
+                <span class="info-value">A reader. A dreamer. Always curious.</span>
+            </div>
+
+        </div>
+
+        <!-- Preferences Tab -->
+        <div class="tab-content hidden" id="tab-preferences">
+
+            <div class="info-row">
+                <span class="info-label">Language</span>
+                <span class="info-value">English</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Newsletter</span>
+                <span class="info-value">Weekly digest</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Theme</span>
+                <span class="info-value">System default</span>
+            </div>
+
+        </div>
+
+        <!-- Privacy Tab -->
+        <div class="tab-content hidden" id="tab-privacy">
+
+            <div class="info-row">
+                <span class="info-label">Profile Visibility</span>
+                <span class="info-value">Private</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Data Sharing</span>
+                <span class="info-value">Disabled</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Two-Factor Auth</span>
+                <span class="info-value">Enabled</span>
+            </div>
+
+        </div>
+
+        <!-- Edit Button -->
+        <div class="edit-btn-wrap">
+            <button class="edit-btn">Edit Profile</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function switchTab(tab, btn) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+        document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.remove('hidden');
+        btn.classList.add('active');
+    }
+</script>
+
+{% endblock %}

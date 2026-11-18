@@ -1,0 +1,254 @@
+{% extends "decoy_base.html" %}
+
+{% block title %}Downloads — Reader's Odyssey{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/decoy_downloads.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="downloads-wrapper">
+
+    <h1 class="page-title">Downloads</h1>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterTab(this, 'all')">All Downloads</button>
+        <button class="tab" onclick="filterTab(this, 'article')">Articles</button>
+        <button class="tab" onclick="filterTab(this, 'magazine')">Magazines</button>
+        <button class="tab" onclick="filterTab(this, 'journal')">Journals</button>
+        <button class="tab" onclick="filterTab(this, 'report')">Reports</button>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+        <div class="stat-item">
+            <div class="stat-icon blue"><i class="fas fa-download"></i></div>
+            <div>
+                <h3>18</h3>
+                <span>Total Downloads</span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon green"><i class="fas fa-file-lines"></i></div>
+            <div>
+                <h3>12</h3>
+                <span>Articles</span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon purple"><i class="fas fa-newspaper"></i></div>
+            <div>
+                <h3>4</h3>
+                <span>Magazines</span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon orange"><i class="fas fa-file-pdf"></i></div>
+            <div>
+                <h3>2</h3>
+                <span>Reports</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Downloads Table -->
+    <div class="downloads-section">
+
+        <div class="section-header">
+            <h2>Recent Downloads</h2>
+            <a href="#" class="view-all">View All</a>
+        </div>
+
+        <!-- Table Head -->
+        <div class="table-head">
+            <span class="col-item">Item</span>
+            <span class="col-type">Type</span>
+            <span class="col-date">Downloaded On</span>
+            <span class="col-size">Size</span>
+            <span class="col-action">Action</span>
+        </div>
+
+        <!-- Table Rows -->
+        <div class="downloads-list">
+
+            <div class="download-row" data-type="article">
+                <div class="col-item">
+                    <img src="{{ url_for('static', filename='images/rh1.png') }}" alt="">
+                    <div>
+                        <p class="item-title">The Evolution of Digital Entertainment</p>
+                        <small>Article</small>
+                    </div>
+                </div>
+                <div class="col-type">
+                    <span class="type-tag article-tag">Article</span>
+                </div>
+                <div class="col-date">
+                    <p>May 30, 2025</p>
+                    <small>10:24 AM</small>
+                </div>
+                <div class="col-size">2.4 MB</div>
+                <div class="col-action">
+                    <a href="{{ url_for('download_resource', resource_id=9) }}" class="dl-btn"><i class="fas fa-download"></i></a>
+                    <button class="more-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="download-row" data-type="magazine">
+                <div class="col-item">
+                    <img src="{{ url_for('static', filename='images/rh2.png') }}" alt="">
+                    <div>
+                        <p class="item-title">Global Travel Trends You Should Know</p>
+                        <small>Magazine</small>
+                    </div>
+                </div>
+                <div class="col-type">
+                    <span class="type-tag magazine-tag">Magazine</span>
+                </div>
+                <div class="col-date">
+                    <p>May 28, 2025</p>
+                    <small>03:15 PM</small>
+                </div>
+                <div class="col-size">12.6 MB</div>
+                <div class="col-action">
+                    <a href="{{ url_for('download_resource', resource_id=10) }}" class="dl-btn"><i class="fas fa-download"></i></a>
+                    <button class="more-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="download-row" data-type="journal">
+                <div class="col-item">
+                    <img src="{{ url_for('static', filename='images/rh3.png') }}" alt="">
+                    <div>
+                        <p class="item-title">AI Tools Transforming the Future</p>
+                        <small>Journal</small>
+                    </div>
+                </div>
+                <div class="col-type">
+                    <span class="type-tag journal-tag">Journal</span>
+                </div>
+                <div class="col-date">
+                    <p>May 27, 2025</p>
+                    <small>11:48 AM</small>
+                </div>
+                <div class="col-size">5.7 MB</div>
+                <div class="col-action">
+                    <a href="{{ url_for('download_resource', resource_id=12) }}" class="dl-btn"><i class="fas fa-download"></i></a>
+                    <button class="more-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="download-row" data-type="article">
+                <div class="col-item">
+                    <img src="{{ url_for('static', filename='images/rh4.png') }}" alt="">
+                    <div>
+                        <p class="item-title">Healthy Habits for Better Living</p>
+                        <small>Article</small>
+                    </div>
+                </div>
+                <div class="col-type">
+                    <span class="type-tag article-tag">Article</span>
+                </div>
+                <div class="col-date">
+                    <p>May 25, 2025</p>
+                    <small>09:30 AM</small>
+                </div>
+                <div class="col-size">3.1 MB</div>
+                <div class="col-action">
+                    <a href="{{ url_for('download_resource', resource_id=11) }}" class="dl-btn"><i class="fas fa-download"></i></a>
+                    <button class="more-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="download-row" data-type="report">
+                <div class="col-item">
+                    <img src="{{ url_for('static', filename='images/rh5.png') }}" alt="">
+                    <div>
+                        <p class="item-title">Executive Market Report – Q2 2025</p>
+                        <small>Report</small>
+                    </div>
+                </div>
+                <div class="col-type">
+                    <span class="type-tag report-tag">Report</span>
+                </div>
+                <div class="col-date">
+                    <p>May 20, 2025</p>
+                    <small>02:10 PM</small>
+                </div>
+                <div class="col-size">8.9 MB</div>
+                <div class="col-action">
+                    <a href="{{ url_for('download_resource', resource_id=7) }}" class="dl-btn"><i class="fas fa-download"></i></a>
+                    <button class="more-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="download-row" data-type="report">
+                <div class="col-item">
+                    <img src="{{ url_for('static', filename='images/recommend3.png') }}" alt="">
+                    <div>
+                        <p class="item-title">Technology Outlook Report 2025</p>
+                        <small>Report</small>
+                    </div>
+                </div>
+                <div class="col-type">
+                    <span class="type-tag report-tag">Report</span>
+                </div>
+                <div class="col-date">
+                    <p>May 18, 2025</p>
+                    <small>01:05 PM</small>
+                </div>
+                <div class="col-size">7.8 MB</div>
+                <div class="col-action">
+                    <a href="{{ url_for('download_resource', resource_id=8) }}" class="dl-btn"></a><i class="fas fa-download"></i></a>
+                    <button class="more-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <!-- Empty state -->
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <i class="fas fa-download"></i>
+                <p>No downloads in this category.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bottom Info Banner -->
+    <div class="info-banner">
+        <div class="banner-left">
+            <i class="fas fa-shield-halved"></i>
+            <div>
+                <strong>Downloads are available for 7 days from the date of download.</strong>
+                <p>Go to Settings to change download preferences.</p>
+            </div>
+        </div>
+        <a href="{{ url_for('decoy_settings') }}" class="settings-btn">Download Settings</a>
+    </div>
+
+</div>
+
+<script>
+    function filterTab(btn, type) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+
+        const rows = document.querySelectorAll('.download-row');
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            if (type === 'all' || row.dataset.type === type) {
+                row.style.display = 'grid';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        const emptyState = document.getElementById('emptyState');
+        emptyState.style.display = visibleCount === 0 ? 'flex' : 'none';
+    }
+</script>
+
+{% endblock %}

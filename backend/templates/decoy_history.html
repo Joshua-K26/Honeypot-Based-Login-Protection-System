@@ -1,0 +1,156 @@
+{% extends "decoy_base.html" %}
+
+{% block title %}Reading History — Reader's Odyssey{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/decoy_history.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="history-wrapper">
+
+    <h1 class="page-title">Reading History</h1>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterTab(this, 'all')">All</button>
+        <button class="tab" onclick="filterTab(this, 'magazine')">Magazines</button>
+        <button class="tab" onclick="filterTab(this, 'journal')">Journals</button>
+    </div>
+
+    <!-- History List -->
+    <div class="history-list">
+
+        <div class="history-item" data-type="article">
+            <img src="{{ url_for('static', filename='images/continue1.png') }}" alt="">
+            <div class="item-info">
+                <h3>The Rise of Digital Stardom</h3>
+                <p>May 30, 2025 • Article</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">85%</span>
+                <div class="pbar"><div class="pfill" style="width:85%"></div></div>
+            </div>
+        </div>
+
+        <div class="history-item" data-type="magazine">
+            <img src="{{ url_for('static', filename='images/continue2.png') }}" alt="">
+            <div class="item-info">
+                <h3>Minimal Living, Maximum Joy</h3>
+                <p>May 28, 2025 • Magazine</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">60%</span>
+                <div class="pbar"><div class="pfill" style="width:60%"></div></div>
+            </div>
+        </div>
+
+        <div class="history-item" data-type="journal">
+            <img src="{{ url_for('static', filename='images/continue3.png') }}" alt="">
+            <div class="item-info">
+                <h3>The Future of AI in Daily Life</h3>
+                <p>May 27, 2025 • Journal</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">40%</span>
+                <div class="pbar"><div class="pfill" style="width:40%"></div></div>
+            </div>
+        </div>
+
+        <div class="history-item" data-type="article">
+            <img src="{{ url_for('static', filename='images/rh1.png') }}" alt="">
+            <div class="item-info">
+                <h3>The Evolution of Digital Entertainment</h3>
+                <p>May 25, 2025 • Article</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">60%</span>
+                <div class="pbar"><div class="pfill" style="width:60%"></div></div>
+            </div>
+        </div>
+
+        <div class="history-item" data-type="magazine">
+            <img src="{{ url_for('static', filename='images/rh2.png') }}" alt="">
+            <div class="item-info">
+                <h3>Global Travel Trends You Should Know</h3>
+                <p>May 22, 2025 • Magazine</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">100%</span>
+                <div class="pbar"><div class="pfill" style="width:100%"></div></div>
+            </div>
+        </div>
+
+        <div class="history-item" data-type="journal">
+            <img src="{{ url_for('static', filename='images/rh3.png') }}" alt="">
+            <div class="item-info">
+                <h3>AI Tools Transforming the Future</h3>
+                <p>May 20, 2025 • Journal</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">75%</span>
+                <div class="pbar"><div class="pfill" style="width:75%"></div></div>
+            </div>
+        </div>
+
+        <div class="history-item" data-type="article">
+            <img src="{{ url_for('static', filename='images/rh4.png') }}" alt="">
+            <div class="item-info">
+                <h3>Healthy Habits for Better Living</h3>
+                <p>May 18, 2025 • Article</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">100%</span>
+                <div class="pbar"><div class="pfill" style="width:100%"></div></div>
+            </div>
+        </div>
+
+        <div class="history-item" data-type="article">
+            <img src="{{ url_for('static', filename='images/rh5.png') }}" alt="">
+            <div class="item-info">
+                <h3>Financial Planning for Professionals</h3>
+                <p>May 15, 2025 • Article</p>
+            </div>
+            <div class="item-progress">
+                <span class="pct">90%</span>
+                <div class="pbar"><div class="pfill" style="width:90%"></div></div>
+            </div>
+        </div>
+
+        <!-- Empty state shown when no results -->
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <i class="fas fa-book-open"></i>
+            <p>No items found in this category.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function filterTab(btn, type) {
+        // Update active tab
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter items
+        const items = document.querySelectorAll('.history-item');
+        let visibleCount = 0;
+
+        items.forEach(item => {
+            if (type === 'all' || item.dataset.type === type) {
+                item.style.display = 'flex';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Show empty state if nothing matches
+        const emptyState = document.getElementById('emptyState');
+        emptyState.style.display = visibleCount === 0 ? 'flex' : 'none';
+    }
+</script>
+
+{% endblock %}

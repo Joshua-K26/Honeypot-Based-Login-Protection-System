@@ -1,0 +1,284 @@
+.bookmarks-wrapper {
+    padding: 4px 0 40px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #172554;
+    margin-bottom: 20px;
+}
+
+/* ======================
+   FILTER TABS
+====================== */
+
+.filter-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    padding: 8px 20px;
+    border-radius: 25px;
+    border: 1.5px solid #e2e8f0;
+    background: transparent;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: "Segoe UI", sans-serif;
+    transition: all .2s;
+}
+
+.tab:hover { border-color: #2346b5; color: #2346b5; }
+
+.tab.active {
+    background: #172554;
+    border-color: #172554;
+    color: #fff;
+}
+
+/* ======================
+   STATS ROW
+====================== */
+
+.stats-row {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 28px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.stat-icon.blue { background: #2346b5; }
+.stat-icon.green { background: #16a34a; }
+.stat-icon.purple { background: #7c3aed; }
+.stat-icon.orange { background: #ea580c; }
+
+.stat-item h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #172554;
+    margin-bottom: 2px;
+}
+
+.stat-item span {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* ======================
+   SAVED SECTION
+====================== */
+
+.saved-section {
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.saved-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.saved-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #172554;
+}
+
+.sort-by {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.sort-by span {
+    color: #2346b5;
+    font-weight: 600;
+}
+
+.sort-by i { font-size: 11px; color: #2346b5; }
+
+/* ======================
+   BOOKMARK ITEMS
+====================== */
+
+.bookmark-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f8fafc;
+    transition: background .2s;
+    cursor: pointer;
+}
+
+.bookmark-item:last-child { border-bottom: none; }
+.bookmark-item:hover { background: #f8fafc; }
+
+.bookmark-item img {
+    width: 90px;
+    height: 68px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.bookmark-info { flex: 1; min-width: 0; }
+
+.type-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+}
+
+.article-tag { background: #eff6ff; color: #2346b5; }
+.magazine-tag { background: #f0fdf4; color: #16a34a; }
+.journal-tag { background: #faf5ff; color: #7c3aed; }
+.report-tag { background: #fff7ed; color: #ea580c; }
+
+.bookmark-info h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #172554;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.bookmark-info p {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.bookmark-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: all .2s;
+}
+
+.icon-btn:hover { background: #f1f5f9; color: #2346b5; }
+
+/* ======================
+   EMPTY STATE
+====================== */
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    gap: 12px;
+    color: #94a3b8;
+}
+
+.empty-state i { font-size: 32px; color: #cbd5e1; }
+.empty-state p { font-size: 14px; font-weight: 500; }
+
+/* ======================
+   BOTTOM BANNER
+====================== */
+
+.bottom-banner {
+    background: #f0f4ff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid #e0e7ff;
+}
+
+.banner-icon {
+    width: 48px;
+    height: 48px;
+    background: #dde5ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2346b5;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.banner-text { flex: 1; }
+
+.banner-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #172554;
+    margin-bottom: 3px;
+}
+
+.banner-text p {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.explore-btn {
+    background: #fff;
+    color: #2346b5;
+    border: 1.5px solid #2346b5;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Segoe UI", sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .2s;
+}
+
+.explore-btn:hover { background: #2346b5; color: #fff; }

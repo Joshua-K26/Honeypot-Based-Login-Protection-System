@@ -1,0 +1,108 @@
+{% extends "decoy_base.html" %}
+
+{% block title %}Premium Articles — Reader's Odyssey{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/decoy_articles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Premium Articles</h1>
+</div>
+
+<div class="filter-tabs">
+    <button class="tab active">All</button>
+    <button class="tab">Entertainment</button>
+    <button class="tab">Lifestyle</button>
+    <button class="tab">Technology</button>
+    <button class="tab">Business</button>
+    <button class="tab">Health</button>
+</div>
+
+<div class="articles-grid">
+
+    <div class="article-card"
+         onclick="window.location='{{ url_for('decoy_article', resource_id=1) }}'">
+
+        <div class="card-img-wrap">
+            <img src="{{ url_for('static', filename='images/pa1.png') }}" alt="">
+            <span class="card-tag">Premium</span>
+        </div>
+        <div class="card-info">
+            <h3>Celebrities Behind the Fame</h3>
+        </div>
+    </div>
+
+    <div class="article-card"
+         onclick="window.location='{{ url_for('decoy_article', resource_id=2) }}'">
+        <div class="card-img-wrap">
+            <img src="{{ url_for('static', filename='images/pa2.png') }}" alt="">
+            <span class="card-tag">Premium</span>
+        </div>
+        <div class="card-info">
+            <h3>Inside the World of Movie Premieres</h3>
+        </div>
+    </div>
+
+    <div class="article-card"
+         onclick="window.location='{{ url_for('decoy_article', resource_id=3) }}'">
+        <div class="card-img-wrap">
+            <img src="{{ url_for('static', filename='images/pa3.png') }}" alt="">
+            <span class="card-tag">Premium</span>
+        </div>
+        <div class="card-info">
+            <h3>Top 10 Songs This Month</h3>
+        </div>
+    </div>
+
+    <div class="article-card"
+         onclick="window.location='{{ url_for('decoy_article', resource_id=4) }}'">
+        <div class="card-img-wrap">
+            <img src="{{ url_for('static', filename='images/pa4.png') }}" alt="">
+            <span class="card-tag">Premium</span>
+        </div>
+        <div class="card-info">
+            <h3>Streaming Wars: Who's Winning?</h3>
+        </div>
+    </div>
+
+    <div class="article-card"
+         onclick="window.location='{{ url_for('decoy_article', resource_id=5) }}'">
+        <div class="card-img-wrap">
+            <img src="{{ url_for('static', filename='images/pa5.png') }}" alt="">
+            <span class="card-tag">Premium</span>
+        </div>
+        <div class="card-info">
+            <h3>Luxury Living in 2025</h3>
+        </div>
+    </div>
+
+    <div class="article-card"
+         onclick="window.location='{{ url_for('decoy_article', resource_id=6) }}'">
+        <div class="card-img-wrap">
+            <img src="{{ url_for('static', filename='images/pa6.png') }}" alt="">
+            <span class="card-tag">Premium</span>
+        </div>
+        <div class="card-info">
+            <h3>The Future of Smart Homes</h3>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+</script>
+
+{% endblock %}

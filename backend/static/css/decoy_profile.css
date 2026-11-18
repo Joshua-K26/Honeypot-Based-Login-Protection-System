@@ -1,0 +1,187 @@
+/* ======================
+   PROFILE WRAPPER
+====================== */
+
+.profile-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 40px;
+}
+
+.profile-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 36px 28px;
+    width: 100%;
+    max-width: 620px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    border: 1px solid #f1f5f9;
+}
+
+/* ======================
+   AVATAR & NAME
+====================== */
+
+.avatar-wrap {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 14px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e0e7ff;
+}
+
+.profile-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #172554;
+    margin-bottom: 4px;
+}
+
+.profile-badge {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f59e0b;
+    margin-bottom: 2px;
+}
+
+.profile-since {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 24px;
+}
+
+/* ======================
+   STATS ROW
+====================== */
+
+.stats-row {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 18px 0;
+    margin-bottom: 24px;
+}
+
+.stat {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #f1f5f9;
+}
+
+.stat:last-child { border-right: none; }
+
+.stat h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #172554;
+    margin-bottom: 3px;
+}
+
+.stat span {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+/* ======================
+   TABS
+====================== */
+
+.profile-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #f1f5f9;
+    margin-bottom: 24px;
+}
+
+.ptab {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #94a3b8;
+    cursor: pointer;
+    font-family: "Segoe UI", sans-serif;
+    transition: all .2s;
+}
+
+.ptab:hover { color: #2346b5; }
+
+.ptab.active {
+    color: #2346b5;
+    border-bottom-color: #2346b5;
+}
+
+/* ======================
+   TAB CONTENT
+====================== */
+
+.tab-content { display: block; }
+
+.tab-content.hidden { display: none; }
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f8fafc;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-label {
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+    min-width: 120px;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ======================
+   EDIT BUTTON
+====================== */
+
+.edit-btn-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.edit-btn {
+    background: #fff;
+    color: #2346b5;
+    border: 2px solid #2346b5;
+    border-radius: 10px;
+    padding: 11px 48px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Segoe UI", sans-serif;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.edit-btn:hover {
+    background: #2346b5;
+    color: #fff;
+}

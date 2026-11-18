@@ -1,0 +1,193 @@
+{% extends "decoy_base.html" %}
+
+{% block title %}Bookmarks — Reader's Odyssey{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/decoy_saved.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="bookmarks-wrapper">
+
+    <h1 class="page-title">Bookmarks</h1>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterTab(this, 'all')">All Bookmarks</button>
+        <button class="tab" onclick="filterTab(this, 'article')">Articles</button>
+        <button class="tab" onclick="filterTab(this, 'magazine')">Magazines</button>
+        <button class="tab" onclick="filterTab(this, 'journal')">Journals</button>
+        <button class="tab" onclick="filterTab(this, 'report')">Reports</button>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+        <div class="stat-item">
+            <div class="stat-icon blue"><i class="fas fa-bookmark"></i></div>
+            <div>
+                <h3>24</h3>
+                <span>Total Bookmarks</span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon green"><i class="fas fa-file-lines"></i></div>
+            <div>
+                <h3>14</h3>
+                <span>Articles</span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon purple"><i class="fas fa-newspaper"></i></div>
+            <div>
+                <h3>7</h3>
+                <span>Magazines</span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon orange"><i class="fas fa-book"></i></div>
+            <div>
+                <h3>3</h3>
+                <span>Journals</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Bookmarks -->
+    <div class="saved-section">
+
+        <div class="saved-header">
+            <h2>Saved Bookmarks</h2>
+            <div class="sort-by">
+                Sort by: <span>Recently Saved</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <div class="bookmarks-list">
+
+            <div class="bookmark-item" data-type="article">
+                <img src="{{ url_for('static', filename='images/continue1.png') }}" alt="">
+                <div class="bookmark-info">
+                    <span class="type-tag article-tag">Article</span>
+                    <h3>The Evolution of Digital Entertainment</h3>
+                    <p>Saved on May 30, 2025 • Article</p>
+                </div>
+                <div class="bookmark-actions">
+                    <button class="icon-btn"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                    <button class="icon-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="bookmark-item" data-type="magazine">
+                <img src="{{ url_for('static', filename='images/continue2.png') }}" alt="">
+                <div class="bookmark-info">
+                    <span class="type-tag magazine-tag">Magazine</span>
+                    <h3>Global Travel Trends You Should Know</h3>
+                    <p>Saved on May 28, 2025 • Magazine</p>
+                </div>
+                <div class="bookmark-actions">
+                    <button class="icon-btn"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                    <button class="icon-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="bookmark-item" data-type="journal">
+                <img src="{{ url_for('static', filename='images/continue3.png') }}" alt="">
+                <div class="bookmark-info">
+                    <span class="type-tag journal-tag">Journal</span>
+                    <h3>AI Tools Transforming the Future</h3>
+                    <p>Saved on May 27, 2025 • Journal</p>
+                </div>
+                <div class="bookmark-actions">
+                    <button class="icon-btn"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                    <button class="icon-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="bookmark-item" data-type="article">
+                <img src="{{ url_for('static', filename='images/rh4.png') }}" alt="">
+                <div class="bookmark-info">
+                    <span class="type-tag article-tag">Article</span>
+                    <h3>Healthy Habits for Better Living</h3>
+                    <p>Saved on May 25, 2025 • Article</p>
+                </div>
+                <div class="bookmark-actions">
+                    <button class="icon-btn"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                    <button class="icon-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="bookmark-item" data-type="report">
+                <img src="{{ url_for('static', filename='images/recommend1.png') }}" alt="">
+                <div class="bookmark-info">
+                    <span class="type-tag report-tag">Report</span>
+                    <h3>Executive Market Report — Q2 2025</h3>
+                    <p>Saved on May 20, 2025 • Report</p>
+                </div>
+                <div class="bookmark-actions">
+                    <button class="icon-btn"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                    <button class="icon-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <div class="bookmark-item" data-type="report">
+                <img src="{{ url_for('static', filename='images/recommend2.png') }}" alt="">
+                <div class="bookmark-info">
+                    <span class="type-tag report-tag">Report</span>
+                    <h3>Technology Outlook Report 2025</h3>
+                    <p>Saved on May 18, 2025 • Report</p>
+                </div>
+                <div class="bookmark-actions">
+                    <button class="icon-btn"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                    <button class="icon-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <!-- Empty state -->
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <i class="fas fa-bookmark"></i>
+                <p>No bookmarks in this category.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bottom Banner -->
+    <div class="bottom-banner">
+        <div class="banner-icon">
+            <i class="fas fa-bookmark"></i>
+        </div>
+        <div class="banner-text">
+            <strong>Save articles and content you love.</strong>
+            <p>Your bookmarks are saved for quick and easy access anytime.</p>
+        </div>
+        <button class="explore-btn">Explore Content</button>
+    </div>
+
+</div>
+
+<script>
+    function filterTab(btn, type) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+
+        const items = document.querySelectorAll('.bookmark-item');
+        let visibleCount = 0;
+
+        items.forEach(item => {
+            if (type === 'all' || item.dataset.type === type) {
+                item.style.display = 'flex';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        const emptyState = document.getElementById('emptyState');
+        emptyState.style.display = visibleCount === 0 ? 'flex' : 'none';
+    }
+</script>
+
+{% endblock %}

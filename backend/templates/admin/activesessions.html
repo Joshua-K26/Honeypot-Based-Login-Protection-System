@@ -1,0 +1,169 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Active Sessions — Honeypot Monitor{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/activesessions.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="sessions-wrapper">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Active Sessions</h1>
+            <p class="page-sub">Monitor all active and recent honeypot sessions</p>
+        </div>
+    </div>
+
+    <!-- Filters Row -->
+    <div class="filters-row">
+        <div class="search-box">
+            <i class="fas fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search by username or IP..." id="searchInput" oninput="filterTable()">
+        </div>
+        <div class="filter-selects">
+            <select id="statusFilter" onchange="filterTable()">
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="ended">Ended</option>
+            </select>
+            
+        </div>
+        <button class="export-btn"><i class="fas fa-upload"></i> Export</button>
+    </div>
+
+    <!-- Sessions Table -->
+    <div class="table-card">
+        <table class="sessions-table" id="sessionsTable">
+            <thead>
+                <tr>
+                    <th>Username Entered</th>
+                    <th>IP Address</th>
+                    <th>Entry Time</th>
+                    <th>Exit Time</th>
+                    <th>Duration</th>
+                    <th>Pages Visited</th>
+                    <th>Actions</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+
+{% for session in sessions %}
+
+<tr data-status="{{ session.status }}"
+    data-ip="{{ session.ip_address.split('.')[0] }}">
+
+    <td>
+    <a class="session-link"
+       href="{{ url_for('admin_sessions',
+                        session_id=session.session_id) }}">
+        {{ session.fake_username }}
+    </a>
+</td>
+
+    <td>{{ session.ip_address }}</td>
+
+    <td>
+        {{ session.entry_time.strftime("%I:%M %p") }}
+    </td>
+
+    <td>
+        {% if session.exit_time %}
+            {{ session.exit_time.strftime("%I:%M %p") }}
+        {% else %}
+            —
+        {% endif %}
+    </td>
+
+    <td>{{ session.duration }} min</td>
+
+    <td>{{ session.pages_visited }}</td>
+
+    <td>{{ session.actions }}</td>
+
+    <td>
+        {% if session.status == "active" %}
+            <span class="badge active">Active</span>
+        {% else %}
+            <span class="badge ended">Ended</span>
+        {% endif %}
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-row">
+        <span class="showing-text">
+    Showing {{ pagination.first }} to {{ pagination.last }} of {{ pagination.total }} sessions
+</span>
+        <div class="pagination">
+
+    {% if pagination.has_prev %}
+        <a class="page-btn"
+           href="{{ url_for('activesessions', page=pagination.prev_num) }}">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    {% else %}
+        <button class="page-btn disabled">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    {% endif %}
+
+    {% for p in pagination.iter_pages() %}
+        {% if p %}
+            <a href="{{ url_for('activesessions', page=p) }}"
+               class="page-btn {% if p == pagination.page %}active{% endif %}">
+                {{ p }}
+            </a>
+        {% endif %}
+    {% endfor %}
+
+    {% if pagination.has_next %}
+        <a class="page-btn"
+           href="{{ url_for('activesessions', page=pagination.next_num) }}">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    {% else %}
+        <button class="page-btn disabled">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    {% endif %}
+
+</div>
+    </div>
+
+</div>
+
+<script>
+    function filterTable() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const status = document.getElementById('statusFilter').value;
+        const location = document.getElementById('locationFilter').value;
+        const rows = document.querySelectorAll('#tableBody tr');
+
+        rows.forEach(row => {
+            const username = row.cells[0].textContent.toLowerCase();
+            const ip = row.cells[1].textContent;
+            const rowStatus = row.dataset.status;
+            const rowIp = row.dataset.ip;
+
+            const matchSearch = username.includes(search) || ip.includes(search);
+            const matchStatus = status === 'all' || rowStatus === status;
+            const matchLocation = location === 'all' || rowIp === location;
+
+            row.style.display = matchSearch && matchStatus && matchLocation ? '' : 'none';
+        });
+    }
+</script>
+
+{% endblock %}

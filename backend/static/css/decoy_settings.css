@@ -1,0 +1,209 @@
+/* ======================
+   WRAPPER
+====================== */
+
+.settings-wrapper {
+    padding: 4px 0 40px;
+    max-width: 680px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #172554;
+    margin-bottom: 20px;
+}
+
+/* ======================
+   TABS
+====================== */
+
+.settings-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 24px;
+}
+
+.stab {
+    padding: 10px 22px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #94a3b8;
+    cursor: pointer;
+    font-family: "Segoe UI", sans-serif;
+    transition: all .2s;
+}
+
+.stab:hover { color: #2346b5; }
+
+.stab.active {
+    color: #2346b5;
+    border-bottom-color: #2346b5;
+}
+
+/* ======================
+   TAB PANELS
+====================== */
+
+.tab-panel { display: block; }
+.tab-panel.hidden { display: none; }
+
+/* ======================
+   SETTINGS CARD
+====================== */
+
+.settings-card {
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f8fafc;
+    gap: 16px;
+}
+
+.setting-row:last-child { border-bottom: none; }
+
+.setting-info { flex: 1; }
+
+.setting-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #172554;
+    margin-bottom: 3px;
+}
+
+.setting-info p {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* ======================
+   ACTION BUTTONS
+====================== */
+
+.action-btn {
+    background: #f1f5ff;
+    color: #2346b5;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Segoe UI", sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .2s;
+}
+
+.action-btn:hover {
+    background: #2346b5;
+    color: #fff;
+}
+
+.danger-btn {
+    background: #fff0f0;
+    color: #dc2626;
+}
+
+.danger-btn:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
+/* ======================
+   TOGGLE SWITCH
+====================== */
+
+.toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.enabled-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #16a34a;
+}
+
+.on-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #16a34a;
+}
+
+.off-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.toggle input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: #e2e8f0;
+    border-radius: 24px;
+    transition: .3s;
+}
+
+.slider::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: .3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.toggle input:checked + .slider { background: #16a34a; }
+
+.toggle input:checked + .slider::before { transform: translateX(20px); }
+
+.secret-field{
+
+    margin-top:10px;
+
+    width:280px;
+
+    padding:10px 14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#1f2937;
+
+    color:#f1f5f9;
+
+    font-size:14px;
+
+    letter-spacing:1px;
+
+}

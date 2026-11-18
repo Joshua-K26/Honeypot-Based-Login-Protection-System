@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader's Odyssey</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/decoy_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/2.png') }}" alt="Reader's Odyssey">
+        </div>
+
+        <ul class="menu">
+            <li class="active">
+                <i class="fas fa-house"></i> Dashboard
+            </li>
+            <li onclick="window.location='{{ url_for('decoy_articles') }}'">
+                <i class="fas fa-crown"></i> Premium Articles
+            </li>
+            <li>
+                <i class="far fa-newspaper"></i> Magazines
+            </li>
+            <li>
+                <i class="fas fa-book"></i> Journals
+            </li>
+            <li onclick="window.location='{{ url_for('decoy_saved') }}'">
+                <i class="far fa-bookmark"></i> Bookmarks
+                <i class="fas fa-chevron-right arrow"></i>
+            </li>
+            <li onclick="window.location='{{ url_for('decoy_history') }}'">
+                <i class="fas fa-clock-rotate-left"></i> Reading History
+            </li>
+            <li onclick="window.location='{{ url_for('decoy_downloads') }}'">
+                <i class="fas fa-download"></i> Downloads
+            </li>
+            <li onclick="window.location='{{ url_for('decoy_profile') }}'">
+                <i class="far fa-user"></i> My Profile
+            </li>
+            <li onclick="window.location='{{ url_for('decoy_subscription') }}'">
+                <i class="fas fa-crown"></i> Subscription
+            </li>
+            <li onclick="window.location='{{ url_for('decoy_settings') }}'">
+                <i class="fas fa-gear"></i> Settings
+            </li>
+            <li>
+                <i class="far fa-circle-question"></i> Help &amp; Support
+            </li>
+        </ul>
+
+        <div class="premium-box">
+            <i class="fas fa-crown"></i>
+            <h4>PREMIUM MEMBER</h4>
+            <p>Since May 2025</p>
+        </div>
+
+    </aside>
+
+    <!-- ══ MAIN CONTENT ══ -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <div class="topbar">
+
+            <div class="search-box">
+                <i class="fas fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search articles, magazines, journals...">
+            </div>
+
+            <div class="user-section">
+                <div class="notification">
+                    <i class="far fa-bell" style="font-size:20px; color:#94a3b8; cursor:pointer;"></i>
+                    <span>3</span>
+                </div>
+                <img src="https://i.pravatar.cc/45?img=10" class="avatar" alt="User">
+                <div>
+                    <strong>{{ username }}</strong><br>
+                    <small style="color:#f59e0b; font-weight:600;">⭐ Premium Member</small>
+                </div>
+                <i class="fas fa-chevron-down" style="color:#64748b; font-size:13px;"></i>
+            </div>
+
+        </div>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-overlay">
+                <h1>Welcome back,</h1>
+                <div class="hero-user">
+                    <h2>{{ username }}!</h2>
+                    <span class="premium-badge">
+                        <i class="fas fa-star"></i> Premium Member
+                    </span>
+                </div>
+                <p>Discover curated stories,<br>handpicked just for you.</p>
+                <button
+                onclick="window.location='{{ url_for('decoy_articles') }}'">
+
+                    <i class="fas fa-crown"></i> Explore Premium
+                </button>
+            </div>
+        </section>
+
+        <!-- CONTINUE READING -->
+        <section class="continue-reading">
+
+            <div class="section-title">
+                <h2>Continue Reading</h2>
+                <a href="decoy-history">View All</a>
+            </div>
+
+            <div class="reading-grid">
+
+                <div
+                 class="card"
+                 onclick="window.location='{{ url_for('decoy_history') }}'">
+                    <img src="{{ url_for('static', filename='images/continue1.png') }}" alt="">
+                    <div class="card-content">
+                        <small>Entertainment</small>
+                        <h3>The Rise of Digital Stardom</h3>
+                        <p>85% Complete</p>
+                        <div class="progress">
+                            <div class="progress-fill" style="width:85%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-ellipsis-vertical card-dots"></i>
+                </div>
+
+                <div
+                 class="card"
+                 onclick="window.location='{{ url_for('decoy_history') }}'">
+                    <img src="{{ url_for('static', filename='images/continue2.png') }}" alt="">
+                    <div class="card-content">
+                        <small>Lifestyle</small>
+                        <h3>Minimal Living, Maximum Joy</h3>
+                        <p>60% Complete</p>
+                        <div class="progress">
+                            <div class="progress-fill" style="width:60%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-ellipsis-vertical card-dots"></i>
+                </div>
+
+                <div 
+                class="card"
+                onclick="window.location='{{ url_for('decoy_history') }}'">
+                    <img src="{{ url_for('static', filename='images/continue3.png') }}" alt="">
+                    <div class="card-content">
+                        <small>Technology</small>
+                        <h3>The Future of AI in Daily Life</h3>
+                        <p>40% Complete</p>
+                        <div class="progress">
+                            <div class="progress-fill" style="width:40%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-ellipsis-vertical card-dots"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- RECOMMENDED -->
+        <section class="recommended">
+
+            <div class="section-title">
+                <h2>Recommended For You</h2>
+                <a href="#">View All</a>
+            </div>
+
+            <div class="card-grid">
+
+                <div class="card" onclick="window.location='{{ url_for('decoy_articles') }}'">
+                    <img src="{{ url_for('static', filename='images/recommend1.png') }}" alt="">
+                    <div class="card-content">
+                        <small>GLOBAL TRENDS</small>
+                        <h3>24 Articles</h3>
+                    </div>
+                </div>
+
+                <div class="card" 
+                onclick="window.location='{{ url_for('decoy_articles') }}'">
+                    <img src="{{ url_for('static', filename='images/recommend2.png') }}" alt="">
+                    <div class="card-content">
+                        <small>VOGUE LIVING</small>
+                        <h3>18 Articles</h3>
+                    </div>
+                </div>
+
+                <div class="card" onclick="window.location='{{ url_for('decoy_articles') }}'">
+                    <img src="{{ url_for('static', filename='images/recommend3.png') }}" alt="">
+                    <div class="card-content">
+                        <small>TECH INSIDER</small>
+                        <h3>32 Articles</h3>
+                    </div>
+                </div>
+
+                <div class="card" onclick="window.location='{{ url_for('decoy_articles') }}'">
+                    <img src="{{ url_for('static', filename='images/recommend4.png') }}" alt="">
+                    <div class="card-content">
+                        <small>ART &amp; CULTURE</small>
+                        <h3>15 Articles</h3>
+                    </div>
+                </div>
+
+                <div class="card" onclick="window.location='{{ url_for('decoy_articles') }}'">
+                    <img src="{{ url_for('static', filename='images/recommend5.png') }}" alt="">
+                    <div class="card-content">
+                        <small>TRAVEL ESCAPES</small>
+                        <h3>22 Articles</h3>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- BOTTOM BANNER -->
+        <div class="bottom-banner">
+            <div class="banner-left">
+                <i class="fas fa-crown"></i>
+                <div>
+                    <strong>You're a Premium Member! 👑</strong>
+                    <p>Enjoy unlimited access to premium content.</p>
+                </div>
+            </div>
+            <div class="banner-right">
+                <img src="{{ url_for('static', filename='images/recommend1.png') }}" alt="" class="banner-mag">
+                <div>
+                    <strong style="color:#fff; display:block; margin-bottom:3px;">New Magazine Available!</strong>
+                    <small style="color:rgba(255,255,255,0.6);">Global Innovation Edition — May 2025</small>
+                </div>
+                <button>Read Now</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ══ RIGHT PANEL ══ -->
+    <aside class="right-panel">
+
+        <!-- Reading Streak -->
+        <div class="stats-card">
+            <h3>Reading Streak 🔥</h3>
+            <h1>12 Days</h1>
+            <p>Keep it up! You're on a roll.</p>
+            <div class="week">
+                <span class="active">M</span>
+                <span class="active">T</span>
+                <span class="active">W</span>
+                <span class="active">T</span>
+                <span class="active">F</span>
+                <span class="active">S</span>
+                <span>S</span>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-card">
+            <h3>Quick Stats</h3>
+            <div class="quick-stats">
+                <div>
+                    <i class="far fa-file-lines"></i>
+                    <h2>48</h2>
+                    <span>Articles Read</span>
+                </div>
+                <div>
+                    <i class="far fa-newspaper"></i>
+                    <h2>7</h2>
+                    <span>Magazines</span>
+                </div>
+                <div>
+                    <i class="far fa-bookmark"></i>
+                    <h2>12</h2>
+                    <span>Bookmarks</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity -->
+        <div class="stats-card">
+            <h3>Your Activity</h3>
+            <p>Articles Read <span>48</span></p>
+            <p>Magazines <span>7</span></p>
+            <p>Journals <span>5</span></p>
+            <p>Bookmarks <span>12</span></p>
+            <p>Downloads <span>3</span></p>
+        </div>
+
+    </aside>
+
+</div>
+
+</body>
+</html>

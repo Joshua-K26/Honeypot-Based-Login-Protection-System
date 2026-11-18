@@ -1,0 +1,246 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Resource Monitoring — Honeypot Monitor{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_resources.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="resources-wrapper">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Resource Monitoring</h1>
+        <p class="page-sub">Track attacker interest in premium articles and reports</p>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="stat-cards">
+
+        <div class="stat-card">
+            <p class="stat-label">Total Resources</p>
+            <h2 class="stat-val">{{ total_resources }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <p class="stat-label">Total Views</p>
+            <h2 class="stat-val">{{ total_views }} </h2>
+        </div>
+
+        <div class="stat-card">
+            <p class="stat-label">Total Downloads</p>
+            <h2 class="stat-val">{{ total_downloads }} </h2>
+        </div>
+
+        <div class="stat-card">
+            <p class="stat-label">Total Bookmarks</p>
+            <h2 class="stat-val">{{ total_bookmarks }} </h2>
+        </div>
+
+    </div>
+
+    <!-- Resources Table -->
+    <div class="table-card">
+        <table class="resources-table">
+            <thead>
+                <tr>
+                    <th>Resource Name</th>
+                    <th>Type</th>
+                    <th>Views</th>
+                    <th>Downloads</th>
+                    <th>Bookmarks</th>
+                    <th>Last Accessed</th>
+                </tr>
+            </thead>
+           <tbody>
+
+{% for resource in resource_stats %}
+
+<tr>
+
+    <td>{{ resource.title }}</td>
+
+    <td>
+
+    <span class="type-badge
+        {% if resource.resource_type == 'Article' %}
+            article
+        {% elif resource.resource_type == 'Report' %}
+            report
+        {% elif resource.resource_type == 'Magazine' %}
+            magazine
+        {% endif %}
+    ">
+
+        {{ resource.type }}
+
+    </span>
+
+</td>
+
+    <td>{{ resource.views }}</td>
+
+    <td>{{ resource.downloads }}</td>
+
+    <td>{{ resource.bookmarks }}</td>
+
+    <td>
+
+        {% if resource.last_access %}
+
+            {{ resource.last_access.strftime("%d %b %Y %I:%M %p") }}
+
+        {% else %}
+
+            Never
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody> 
+        </table>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-row">
+
+        <!-- Most Accessed Bar Chart -->
+        <div class="chart-card">
+            <h3 class="card-title">Most Accessed Resources</h3>
+
+            <div class="bar-chart">
+
+{% for resource in top_resources %}
+
+<div class="bar-item">
+
+    <p class="bar-label">
+        {{ resource.title }}
+    </p>
+
+    <div class="bar-wrap">
+
+        <div class="bar-fill"
+             style="width: {{ (resource.views * 100 / top_resources[0].views) if top_resources[0].views else 0 }}%;">
+        </div>
+
+        <span class="bar-num">
+            {{ resource.views }}
+        </span>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+                </div>
+
+            </div>
+
+            <div class="bar-axis">
+                <span>0</span>
+                <span>5</span>
+                <span>10</span>
+                <span>15</span>
+                <span>20</span>
+                <span>25</span>
+            </div>
+
+        </div>
+    </div>
+
+        <!-- Donut Chart -->
+        <div class="donut-card">
+            <h3 class="card-title">Resource Type Distribution</h3>
+
+            <div class="donut-wrap">
+                <svg viewBox="0 0 200 200" class="donut-svg">
+                    <!-- Articles 50% blue -->
+                    {% set circumference = 440 %}
+
+<!-- Articles -->
+<circle
+    cx="100"
+    cy="100"
+    r="70"
+    fill="none"
+    stroke="#3b82f6"
+    stroke-width="40"
+    stroke-dasharray="{{ article_percent * circumference / 100 }} {{ circumference }}"
+    stroke-dashoffset="0"
+    transform="rotate(-90 100 100)"
+/>
+
+<!-- Reports -->
+<circle
+    cx="100"
+    cy="100"
+    r="70"
+    fill="none"
+    stroke="#22c55e"
+    stroke-width="40"
+    stroke-dasharray="{{ report_percent * circumference / 100 }} {{ circumference }}"
+    stroke-dashoffset="-{{ article_percent * circumference / 100 }}"
+    transform="rotate(-90 100 100)"
+/>
+
+<!-- Magazines -->
+<circle
+    cx="100"
+    cy="100"
+    r="70"
+    fill="none"
+    stroke="#f59e0b"
+    stroke-width="40"
+    stroke-dasharray="{{ magazine_percent * circumference / 100 }} {{ circumference }}"
+    stroke-dashoffset="-{{ (article_percent + report_percent) * circumference / 100 }}"
+    transform="rotate(-90 100 100)"
+/>
+                    <!-- Inner circle -->
+                    <circle cx="100" cy="100" r="50" fill="#111827"/>
+                </svg>
+
+                <div class="donut-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot blue-dot"></span>
+                        <span>Articles</span>
+                       <span class="legend-val">
+    {{ articles }}
+    ({{ "%.0f"|format(article_percent) }}%)
+</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot green-dot"></span>
+                        <span>Reports</span>
+                        <span class="legend-val">
+    {{ reports }}
+    ({{ "%.0f"|format(report_percent) }}%)
+</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot orange-dot"></span>
+                        <span>Magazines</span>
+                        <span class="legend-val">
+    {{ magazines }}
+    ({{ "%.0f"|format(magazine_percent) }}%)
+</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

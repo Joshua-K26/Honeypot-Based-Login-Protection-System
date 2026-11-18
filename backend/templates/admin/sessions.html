@@ -1,0 +1,376 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Session Details — Honeypot Monitor{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sessions.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="sessions-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="{{ url_for('admin_dashboard') }}">Sessions</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Session Details</span>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">Session Details</h1>
+            <span class="active-badge">Active</span>
+        </div>
+        <div class="header-actions">
+            <button class="export-btn">
+                <i class="fas fa-box-archive"></i> Export Session
+            </button>
+          <form method="POST"
+      action="{{ url_for('terminate_session',
+                         session_id=session.session_id) }}">
+
+    <button
+        class="end-btn"
+        onclick="return confirm('Terminate this attacker session?')">
+
+        <i class="fas fa-ban"></i>
+        End Session
+
+    </button>
+
+
+</form> 
+ <form method="POST"
+          action="{{ url_for('block_ip',
+                             session_id=session.session_id) }}">
+
+        <button
+            class="btn-block-ip"
+            onclick="return confirm('Block this IP?\n\nThe attacker will no longer be able to access the decoy environment.')">
+
+            <i class="fas fa-shield-alt"></i>
+            Block IP
+
+        </button>
+
+    </form>
+        </div>
+    </div>
+
+    <!-- TOP ROW: 3 columns -->
+    <div class="top-row">
+
+        <!-- LEFT: Attacker Information -->
+        <div class="info-card">
+            <h3 class="card-title">Attacker Information</h3>
+
+            <div class="info-field">
+                <label> Username Entered </label>
+                <p>{{ session.fake_username }}</p>
+            </div>
+
+            <div class="info-field">
+                <label>IP Address</label>
+                <p>{{ session.ip_address }}</p>
+            </div>
+
+           
+
+            <div class="info-field">
+                <label>Browser</label>
+                <p>
+                    <span class="chrome-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" fill="#fff"/>
+                            <path d="M12 2a10 10 0 0 1 8.66 5H12a5 5 0 0 0-5 5 5 5 0 0 0 .34 1.83L3.12 8.5A10 10 0 0 1 12 2z" fill="#EA4335"/>
+                            <path d="M20.66 7H12a5 5 0 0 1 5 5 5 5 0 0 1-.34 1.83l4.22 7.33A10 10 0 0 0 20.66 7z" fill="#34A853"/>
+                            <path d="M7 12a5 5 0 0 0 5 5 5 5 0 0 0 4.66-3.17l-4.22-7.33A5 5 0 0 0 7 12z" fill="#FBBC05"/>
+                            <path d="M12 22a10 10 0 0 1-8.88-5.5L7.34 9.17A5 5 0 0 0 12 17a5 5 0 0 0 4.66-3.17l-4.66 8.17z" fill="#4285F4"/>
+                        </svg>
+                    </span>
+                    {{ browser }}
+                </p>
+            </div>
+
+            <div class="info-field">
+                <label>OS</label>
+                <p>
+                    
+                    {{ operating_system }}
+                </p>
+            </div>
+
+            <div class="info-field">
+                <label>Device</label>
+                <p><i class="fas fa-desktop" style="color:#64748b; margin-right:6px;"></i>Desktop</p>
+            </div>
+            
+            <div class="info-field">
+               <label>Device Fingerprint</label>
+               <p>{{ session.fingerprint_id[:20] }}...</p>
+
+            </div>
+
+            <div class="info-field">
+                <label>Entry Time</label>
+                <p>{{ session.entry_time.strftime("%d %b %Y, %I:%M %p") }}</p>
+            </div>
+
+            <div class="info-field">
+                <label>Last Activity</label>
+                <p class="just-now">{{ session.last_activity_time.strftime("%d %b %Y, %I:%M %p") if session.last_activity_time else "N/A" }}</p>
+            </div>
+
+            <div class="info-field">
+                <label>Session ID</label>
+                <p class="session-id">
+                    {{ session.session_id }}
+                    <button class="copy-btn" onclick="copySessionId()" title="Copy">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </p>
+            </div>
+
+        </div>
+
+        <!-- MIDDLE: Session Timeline -->
+        <div class="timeline-card">
+            <h3 class="card-title">Session Timeline</h3>
+
+                <div class="timeline">
+
+{% for event in timeline_events %}
+
+<div class="timeline-item">
+
+    <div class="tl-icon
+
+    {% if event.action_type == "login" %}
+        green-icon
+
+    {% elif event.action_type == "view" %}
+        blue-icon
+
+    {% elif event.action_type == "download" %}
+        orange-icon
+
+    {% elif event.action_type == "bookmark" %}
+        red-icon
+
+    {% elif event.action_type == "download_invoice" %}
+        orange-icon
+
+    {% elif event.action_type == "Recovery Codes Revealed!!" %}
+        purple-icon
+
+    {% elif event.action_type == "Recovery Codes Copied!!" %}
+        teal-icon
+
+    {% elif event.action_type == "API Key Revealed!!" %}
+        cyan-icon
+
+    {% elif event.action_type == "API Key Copied!!" %}
+        teal-icon
+
+    {% elif event.action_type == "Backup Key Revealed!!" %}
+        yellow-icon
+
+    {% elif event.action_type == "Backup Key Copied!!" %}
+        teal-icon
+
+    {% else %}
+        grey-icon
+    {% endif %}
+
+">
+
+    {% if event.action_type == "login" %}
+        <i class="fas fa-right-to-bracket"></i>
+
+    {% elif event.action_type == "view" %}
+        <i class="fas fa-eye"></i>
+
+    {% elif event.action_type == "download" %}
+        <i class="fas fa-download"></i>
+
+    {% elif event.action_type == "bookmark" %}
+        <i class="fas fa-bookmark"></i>
+
+    {% elif event.action_type == "download_invoice" %}
+        <i class="fas fa-file-invoice-dollar"></i>
+
+    {% elif event.action_type == "Recovery Codes Revealed!!" %}
+        <i class="fas fa-key"></i>
+
+    {% elif event.action_type == "Recovery Codes Copied!!" %}
+        <i class="fas fa-copy"></i>
+
+    {% elif event.action_type == "API Key Revealed!!" %}
+        <i class="fas fa-cloud"></i>
+
+    {% elif event.action_type == "API Key Copied!!" %}
+        <i class="fas fa-copy"></i>
+
+    {% elif event.action_type == "Backup Key Revealed!!" %}
+        <i class="fas fa-database"></i>
+
+    {% elif event.action_type == "Backup Key Copied!!" %}
+        <i class="fas fa-copy"></i>
+
+    {% else %}
+        <i class="fas fa-circle"></i>
+
+    {% endif %}
+
+</div>
+
+    <div class="tl-time">
+
+        <span>{{ event.time.strftime("%I:%M %p") }}</span>
+
+    </div>
+
+    <div class="tl-info">
+
+        <div class="tl-action">
+            {{ event.action }}
+        </div>
+
+        <div class="tl-detail">
+            {{ event.resource }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+   </div>
+
+        <!-- RIGHT: Stats + Risk -->
+        <div class="right-col">
+
+            <!-- Session Statistics -->
+            <div class="stats-card">
+                <h3 class="card-title">Session Statistics</h3>
+
+                <div class="stat-row">
+                    <div class="stat-icon-wrap purple-wrap"><i class="fas fa-file-lines"></i></div>
+                    <span class="stat-name">Pages Viewed</span>
+                    <span class="stat-num">{{ session.pages_visited }}</span>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-icon-wrap pink-wrap"><i class="fas fa-computer-mouse"></i></div>
+                    <span class="stat-name">Actions Performed</span>
+                    <span class="stat-num">{{ interaction_count }}</span>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-icon-wrap orange-wrap"><i class="fas fa-download"></i></div>
+                    <span class="stat-name">Downloads</span>
+                    <span class="stat-num">{{ downloads }}</span>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-icon-wrap red-wrap"><i class="fas fa-bookmark"></i></div>
+                    <span class="stat-name">Bookmarks</span>
+                    <span class="stat-num">{{ bookmarks }}</span>
+                </div>
+
+                <div class="stat-row time-row">
+                    <div class="stat-icon-wrap grey-wrap"><i class="far fa-clock"></i></div>
+                    <div>
+                        <span class="stat-name">Time Spent</span>
+                        <p class="time-val">{{ duration }} min</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Risk Level -->
+            <div class="risk-card">
+                <h3 class="card-title">Risk Level</h3>
+                <div class="risk-gauge-wrap">
+                    <svg viewBox="0 0 120 70" class="gauge-svg">
+                        <!-- Background arc -->
+                        {% if risk_level == "Low Risk" %}
+
+<path
+    d="M10,65 A50,50 0 0,1 40,40"
+    fill="none"
+    stroke="#22c55e"
+    stroke-width="10"
+    stroke-linecap="round"/>
+
+{% elif risk_level == "Medium Risk" %}
+
+<path
+    d="M10,65 A50,50 0 0,1 75,18"
+    fill="none"
+    stroke="#f59e0b"
+    stroke-width="10"
+    stroke-linecap="round"/>
+
+{% elif risk_level == "High Risk" %}
+
+<path
+    d="M10,65 A50,50 0 0,1 110,65"
+    fill="none"
+    stroke="#ef4444"
+    stroke-width="10"
+    stroke-linecap="round"/>
+
+{% endif %}
+                    </svg>
+                    <div class="risk-label">
+                        <div class="risk-text
+
+{% if risk_level == "High Risk" %}
+high-risk
+{% elif risk_level == "Medium Risk" %}
+medium-risk
+{% else %}
+low-risk
+{% endif %}
+
+">
+    {{ risk_level }}
+</div>
+                        <div class="risk-score
+
+{% if risk_level == "High Risk" %}
+high-risk
+{% elif risk_level == "Medium Risk" %}
+medium-risk
+{% else %}
+low-risk
+{% endif %}
+
+">
+    Score: {{ risk_score }}/100
+</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+<script>
+    function copySessionId() {
+        navigator.clipboard.writeText('sess_9f8a3b4c6d7e8f1a');
+        const btn = document.querySelector('.copy-btn');
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => btn.innerHTML = '<i class="far fa-copy"></i>', 2000);
+    }
+</script>
+
+{% endblock %}

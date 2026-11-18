@@ -1,0 +1,470 @@
+{% extends "decoy_base.html" %}
+
+{% block title %}Settings — Reader's Odyssey{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/decoy_settings.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="settings-wrapper">
+
+    <h1 class="page-title">Settings</h1>
+
+    <!-- Tabs -->
+    <div class="settings-tabs">
+        <button class="stab" onclick="switchTab(this, 'account')">Account</button>
+        <button class="stab active" onclick="switchTab(this, 'security')">Security</button>
+        <button class="stab" onclick="switchTab(this, 'notifications')">Notifications</button>
+        <button class="stab" onclick="switchTab(this, 'privacy')">Privacy</button>
+    </div>
+
+    <!-- ══ ACCOUNT TAB ══ -->
+    <div class="tab-panel hidden" id="tab-account">
+
+        <div class="settings-card">
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Username</h4>
+                    <p>{{ username }}</p>
+                </div>
+                <button class="action-btn">Update</button>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Email Address</h4>
+                    <p>{{ username | lower }}@readersodyssey.com</p>
+                </div>
+                <button class="action-btn">Update</button>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Subscription</h4>
+                    <p>Premium Annual — Active</p>
+                </div>
+                <button class="action-btn">Manage</button>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Member Since</h4>
+                    <p>March 2024</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ══ SECURITY TAB ══ -->
+    <div class="tab-panel" id="tab-security">
+
+        <div class="settings-card">
+
+            
+           <!-- Recovery Codes -->
+<div class="setting-row">
+
+    <div class="setting-info">
+
+        <h4>Recovery Codes</h4>
+
+        <input
+            id="recoveryCodes"
+            class="secret-field"
+            type="password"
+            value="8H72-AB91-XY44-KLM9"
+            readonly>
+
+    </div>
+
+    <button
+        class="action-btn"
+        onclick="revealRecoveryCodes()">
+
+        Reveal
+
+    </button>
+    <button
+        class="action-btn"
+        id="copyRecoveryBtn"
+        style="display:none;"
+        onclick="copyRecoveryCodes()">
+
+        Copy
+
+    </button>
+
+</div>
+
+<!-- Cloud API Key -->
+
+<div class="setting-row">
+
+    <div class="setting-info">
+
+        <h4>Cloud API Key</h4>
+
+        <input
+            id="apiKey"
+            class="secret-field"
+            type="password"
+            value="RSOD-8X29-ABCD-1122-XY90"
+            readonly>
+
+    </div>
+
+    <button
+        class="action-btn"
+        onclick="revealApiKey()">
+
+        Reveal
+
+    </button>
+    <button
+        class="action-btn"
+        id="copyApiBtn"
+        style="display:none;"
+        onclick="copyApiKey()">
+
+        Copy
+
+    </button>
+
+</div>
+
+<!-- Backup Encryption Key -->
+
+<div class="setting-row">
+
+    <div class="setting-info">
+
+        <h4>Backup Encryption Key</h4>
+
+        <input
+            id="backupKey"
+            class="secret-field"
+            type="password"
+            value="A9F2-X7KD-PQ11-ENC88"
+            readonly>
+
+    </div>
+
+    <button
+        class="action-btn"
+        onclick="revealBackupKey()">
+
+        Reveal
+
+    </button>
+    <button
+        class="action-btn"
+        id="copyBackupBtn"
+        style="display:none;"
+        onclick="copyBackupKey()">
+
+        Copy
+
+    </button>
+
+</div>
+
+            <!-- Two-Factor Auth -->
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Two-Factor Authentication</h4>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="enabled-text">Enabled</span>
+                    <label class="toggle">
+                        <input type="checkbox" checked onchange="toggleLabel(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Active Sessions -->
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Active Sessions</h4>
+                    <p>1 Active Session</p>
+                </div>
+                <button class="action-btn">View</button>
+            </div>
+
+            <!-- Login Alerts -->
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Login Alerts</h4>
+                    <p>Email notifications for new logins</p>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="on-text">On</span>
+                    <label class="toggle">
+                        <input type="checkbox" checked onchange="toggleOnOff(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Device Management -->
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Device Management</h4>
+                    <p>Manage your trusted devices</p>
+                </div>
+                <button class="action-btn">Manage</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ══ NOTIFICATIONS TAB ══ -->
+    <div class="tab-panel hidden" id="tab-notifications">
+
+        <div class="settings-card">
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Email Notifications</h4>
+                    <p>Receive updates via email</p>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="enabled-text">Enabled</span>
+                    <label class="toggle">
+                        <input type="checkbox" checked onchange="toggleLabel(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Push Notifications</h4>
+                    <p>Browser and mobile alerts</p>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="on-text">On</span>
+                    <label class="toggle">
+                        <input type="checkbox" checked onchange="toggleOnOff(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Weekly Digest</h4>
+                    <p>Summary of your reading activity</p>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="enabled-text">Enabled</span>
+                    <label class="toggle">
+                        <input type="checkbox" checked onchange="toggleLabel(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>New Content Alerts</h4>
+                    <p>Get notified when new articles drop</p>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="on-text">On</span>
+                    <label class="toggle">
+                        <input type="checkbox" checked onchange="toggleOnOff(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ══ PRIVACY TAB ══ -->
+    <div class="tab-panel hidden" id="tab-privacy">
+
+        <div class="settings-card">
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Profile Visibility</h4>
+                    <p>Control who can see your profile</p>
+                </div>
+                <button class="action-btn">Private</button>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Data Sharing</h4>
+                    <p>Share usage data to improve experience</p>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="off-text">Off</span>
+                    <label class="toggle">
+                        <input type="checkbox" onchange="toggleOnOff(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Reading History</h4>
+                    <p>Save your reading activity</p>
+                </div>
+                <div class="toggle-wrap">
+                    <span class="enabled-text">Enabled</span>
+                    <label class="toggle">
+                        <input type="checkbox" checked onchange="toggleLabel(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Delete Account</h4>
+                    <p>Permanently remove your account</p>
+                </div>
+                <button class="action-btn danger-btn">Delete</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function switchTab(btn, tab) {
+        document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + tab).classList.remove('hidden');
+    }
+
+    function toggleLabel(checkbox) {
+        const label = checkbox.closest('.toggle-wrap').querySelector('.enabled-text');
+        if (label) label.textContent = checkbox.checked ? 'Enabled' : 'Disabled';
+    }
+
+    function toggleOnOff(checkbox) {
+        const label = checkbox.closest('.toggle-wrap').querySelector('.on-text, .off-text');
+        if (label) {
+            label.textContent = checkbox.checked ? 'On' : 'Off';
+            label.className = checkbox.checked ? 'on-text' : 'off-text';
+        }
+    }
+    
+function revealRecoveryCodes(){
+
+    const field = document.getElementById("recoveryCodes");
+
+    field.type = "text";
+
+    document.getElementById("copyRecoveryBtn").style.display = "inline-block";
+
+    fetch("/reveal-recovery-codes");
+}
+
+function copyRecoveryCodes(){
+
+    navigator.clipboard.writeText(
+        document.getElementById("recoveryCodes").value
+    );
+
+    fetch("/copy-recovery-codes");
+
+    const btn = document.getElementById("copyRecoveryBtn");
+
+    btn.innerHTML = "✓ Copied";
+
+    btn.disabled = true;
+
+    setTimeout(function(){
+
+        btn.innerHTML = "Copy";
+
+        btn.disabled = false;
+
+    },2000);
+}
+
+function revealApiKey(){
+
+    const field = document.getElementById("apiKey");
+
+    field.type = "text";
+
+    document.getElementById("copyApiBtn").style.display = "inline-block";
+
+    fetch("/reveal-api-key");
+}
+
+function copyApiKey(){
+
+    navigator.clipboard.writeText(
+        document.getElementById("apiKey").value
+    );
+
+    fetch("/copy-api-key");
+
+    const btn = document.getElementById("copyApiBtn");
+
+    btn.innerHTML = "✓ Copied";
+
+    btn.disabled = true;
+
+    setTimeout(function(){
+
+        btn.innerHTML = "Copy";
+
+        btn.disabled = false;
+
+    },2000);
+}
+function revealBackupKey(){
+
+    const field = document.getElementById("backupKey");
+
+    field.type = "text";
+
+    document.getElementById("copyBackupBtn").style.display = "inline-block";
+
+    fetch("/reveal-backup-key");
+}
+
+function copyBackupKey(){
+
+    navigator.clipboard.writeText(
+        document.getElementById("backupKey").innerText
+    );
+
+    fetch("/copy-backup-key");
+
+    const btn = document.getElementById("copyBackupBtn");
+
+    btn.innerHTML = "✓ Copied";
+
+    btn.disabled = true;
+
+    setTimeout(function(){
+
+        btn.innerHTML = "Copy";
+
+        btn.disabled = false;
+
+    },2000);
+}
+</script>
+
+{% endblock %}

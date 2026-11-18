@@ -1,0 +1,11 @@
+﻿venv/
+__pycache__/
+*.pyc
+.env
+logs/
+database/backup/
+screenshots)/
+presentation/
+docs/
+decoy_environment/logs/
+backend/static/images/Screenshot*.png

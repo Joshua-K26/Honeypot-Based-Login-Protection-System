@@ -1,0 +1,203 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Interaction Logs — Honeypot Monitor{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_logs.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="logs-wrapper">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Interaction Logs</h1>
+        <p class="page-sub">View all attacker interactions in the decoy environment</p>
+    </div>
+
+    <!-- Filters Row -->
+    <div class="filters-row">
+        <div class="search-box">
+            <i class="fas fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search logs..." id="searchInput" oninput="filterLogs()">
+        </div>
+
+        <select id="actionFilter" onchange="filterLogs()">
+            <option value="all">All Actions</option>
+            <option value="download">Download</option>
+            <option value="bookmark">Bookmark</option>
+            <option value="view">View</option>
+            <option value="login">Login</option>
+            <option value="login-failed">Login Failed</option>
+        </select>
+
+        <select id="resourceFilter" onchange="filterLogs()">
+
+    <option value="all">All Resources</option>
+
+    {% for resource in resources %}
+
+    <option value="{{ resource.resource_id }}">
+        {{ resource.title }}
+    </option>
+
+    {% endfor %}
+
+</select>
+
+      <select id="sessionFilter" onchange="filterLogs()">
+
+    <option value="all">All Sessions</option>
+
+    {% for session in sessions %}
+
+    <option value="{{ session.session_id }}">
+        {{ session.session_id }}
+    </option>
+
+    {% endfor %}
+
+</select>  
+
+        <div class="date-pill">
+            <i class="fas fa-calendar"></i> Date Range
+            <i class="fas fa-chevron-down"></i>
+        </div>
+
+        <button class="export-btn"><i class="fas fa-upload"></i> Export</button>
+    </div>
+
+    <!-- Logs Table -->
+    <div class="table-card">
+        <table class="logs-table" id="logsTable">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                    <th>Resource</th>
+                    <th>Session ID</th>
+                    <th>IP Address</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                {% for log in logs %}
+
+<tr
+    data-action="{{ log.action_type }}"
+    data-session="{{ log.session_id }}"
+>
+
+    <td>{{ log.timestamp }}</td>
+
+    <td>
+
+        <span class="action-badge {{ log.action_type }}">
+
+            {{ log.action }}
+
+        </span>
+
+    </td>
+
+    <td>{{ log.resource }}</td>
+
+    <td>
+
+        <a href="{{ url_for('admin_sessions',
+                            session_id=log.session_id) }}">
+
+            {{ log.session_code }}
+
+        </a>
+
+    </td>
+
+    <td>{{ log.ip_address }}</td>
+
+</tr>
+
+{% endfor %}
+              
+            </tbody>
+        </table>
+
+        <!-- Empty state -->
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <i class="fas fa-list"></i>
+            <p>No logs match your filters.</p>
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-row">
+        <span class="showing-text">Showing
+
+{{ pagination.start }}
+
+to
+
+{{ pagination.end }}
+
+of
+
+{{ pagination.total }}
+
+logs</span>
+        <div class="pagination">
+            <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+            {% for page in pagination.pages %}
+
+{% if page == "..." %}
+
+<span class="page-ellipsis">...</span>
+
+{% else %}
+
+<button
+class="page-btn
+{% if page == pagination.current %}
+active
+{% endif %}
+">
+
+{{ page }}
+
+</button>
+
+{% endif %}
+
+{% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function filterLogs() {
+        const search   = document.getElementById('searchInput').value.toLowerCase();
+        const action   = document.getElementById('actionFilter').value;
+        const session  = document.getElementById('sessionFilter').value;
+        const rows     = document.querySelectorAll('#tableBody tr');
+        let visible    = 0;
+
+        rows.forEach(row => {
+            const text       = row.textContent.toLowerCase();
+            const rowAction  = row.dataset.action;
+            const rowSession = row.dataset.session;
+
+            const matchSearch  = text.includes(search);
+            const matchAction  = action === 'all' || rowAction === action;
+            const matchSession = session === 'all' || rowSession.startsWith(session);
+
+            const show = matchSearch && matchAction && matchSession;
+            row.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+
+        document.getElementById('emptyState').style.display = visible === 0 ? 'flex' : 'none';
+    }
+</script>
+
+{% endblock %}

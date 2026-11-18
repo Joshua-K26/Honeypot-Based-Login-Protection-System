@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Article</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/article.css') }}">
+
+   <link rel="stylesheet"
+href="{{ url_for('static', filename='css/all.min.css') }}">
+
+</head>
+
+<body>
+
+<div class="article-container">
+
+    <!-- Top Navigation -->
+
+    <div class="top-bar">
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Home
+        </a>
+
+        <div class="top-actions">
+
+            <button>
+                <i class="fa-regular fa-bookmark"></i>
+                Bookmark
+            </button>
+
+            <button>
+                <i class="fa-solid fa-share-nodes"></i>
+                Share
+            </button>
+
+            <button>
+                Aa
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="content-wrapper">
+
+        <!-- LEFT -->
+
+        <section class="article-content">
+
+            <span class="category">
+                ENTERTAINMENT
+            </span>
+
+            <h1>
+                The Evolution of
+                Digital Entertainment
+            </h1>
+
+            <div class="article-meta">
+
+                <span>By Joshua Kosgei</span>
+
+                <span>•</span>
+
+                <span>May 10, 2026</span>
+
+                <span>•</span>
+
+                <span>8 min read</span>
+
+            </div>
+
+            <img src="{{ url_for('static',
+            filename='images/concert1.png') }}"
+            class="main-image">
+
+            <div class="article-body">
+
+                <p>
+Digital entertainment has transformed the way we consume content. From streaming
+platforms to online magazines, the options are ultimately endless. Monetary
+opportunities have also expanded for content creators, allowing them to reach
+global audiences.
+</p>
+
+<p>
+As technology continues to advance, the future of digital entertainment
+promises even more immersive experiences. Artificial intelligence, virtual
+reality, and personalized recommendations continue to reshape how people
+discover and enjoy media every day.
+</p>
+
+                
+            </div>
+
+            <div class="article-actions">
+
+                <button>
+                    <i class="fa-regular fa-heart"></i>
+                    Like (128)
+                </button>
+
+                <button>
+                    <i class="fa-regular fa-bookmark"></i>
+                    Bookmark
+                </button>
+
+                <button>
+                    <i class="fa-solid fa-share"></i>
+                    Share
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- RIGHT -->
+
+        <aside class="related">
+
+            <h3>You May Also Like</h3>
+
+            <div class="related-item">
+
+                <img src="{{ url_for('static',
+                filename='images/streaming.png') }}">
+
+                <div>
+
+                    <h4>The Future of Streaming Platforms</h4>
+
+                    <p>May 2025</p>
+
+                </div>
+
+            </div>
+
+            <div class="related-item">
+
+                <img src="{{ url_for('static',
+                filename='images/movies.png') }}">
+
+                <div>
+
+                    <h4>Top 10 Movies to Watch in 2025</h4>
+
+                    <p>April 2025</p>
+
+                </div>
+
+            </div>
+
+            <div class="related-item">
+
+                <img src="{{ url_for('static',
+                filename='images/hollywood.png') }}">
+
+                <div>
+
+                    <h4>Behind the Scenes: Hollywood Secrets</h4>
+
+                    <p>April 2025</p>
+
+                </div>
+
+            </div>
+
+            <button class="view-more">
+                View More Articles
+            </button>
+
+        </aside>
+
+    </div>
+
+</div>
+
+</body>
+</html>

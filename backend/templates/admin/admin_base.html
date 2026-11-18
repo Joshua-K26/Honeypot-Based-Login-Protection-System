@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Honeypot Monitor{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    
+    {% block styles %}{% endblock %}
+</head>
+<body>
+
+<div class="admin-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="admin-sidebar">
+
+        <div class="admin-brand">
+            <div class="brand-icon"><i class="fas fa-shield-halved"></i></div>
+            <div>
+                <div class="brand-name">Honeypot</div>
+                <div class="brand-sub">Monitor</div>
+            </div>
+        </div>
+
+        <ul class="admin-menu">
+            <li class="{% if active_page == 'dashboard' %}active{% endif %}"
+    onclick="window.location='{{ url_for('admin_dashboard') }}'">
+
+    <i class="fas fa-gauge"></i>
+    Dashboard
+
+</li>
+    
+            
+            <li class="{% if active_page == 'resources' %}active{% endif %}"
+    onclick="window.location='{{ url_for('admin_resources') }}'">
+
+    <i class="fas fa-folder-open"></i>
+    Resources
+
+</li>
+            <li class="{% if active_page == 'logs' %}active{% endif %}"
+    onclick="window.location='{{ url_for('admin_logs') }}'">
+
+    <i class="fas fa-list"></i>
+    Logs
+
+</li>
+            <li class="{% if active_page == 'analytics' %}active{% endif %}"
+    onclick="window.location='{{ url_for('admin_analytics') }}'">
+
+    <i class="fas fa-chart-line"></i>
+    Analytics
+
+</li>
+            <li class="{% if active_page == 'settings' %}active{% endif %}"
+    onclick="window.location='{{ url_for('admin_settings') }}'">
+
+    <i class="fas fa-gear"></i>
+    Settings
+
+</li>
+        </ul>
+
+        <div class="admin-user">
+            <img src="https://i.pravatar.cc/36?img=59" alt="Admin">
+            <div>
+                <strong>Admin</strong>
+                <small>Administrator</small>
+            </div>
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
+    </aside>
+
+    <!-- ══ MAIN CONTENT ══ -->
+    <main class="admin-main">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>
