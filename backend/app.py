@@ -450,6 +450,7 @@ def hello():
 
 
 @app.route("/login", methods=["GET", "POST"])
+@limiter.limit("5 per minute", methods=["POST"])
 def login():
 
     form = LoginForm()
@@ -1145,6 +1146,7 @@ def copy_backup_key():
     return "", 204
 
 @app.route("/admin-login", methods=["GET", "POST"])
+@limiter.limit("5 per minute", methods=["POST"])
 def admin_login():
 
     if session.get("admin_logged_in"):
