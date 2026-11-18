@@ -29,6 +29,10 @@ from forms.forms import RegistrationForm, LoginForm
 app = Flask(__name__)
 from werkzeug.middleware.proxy_fix import ProxyFix
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+limiter = Limiter(get_remote_address, app=app, default_limits=[], storage_uri="memory://")
 app.config.from_object(Config)
 
 db.init_app(app)
