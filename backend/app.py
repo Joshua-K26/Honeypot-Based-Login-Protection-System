@@ -1342,36 +1342,37 @@ def admin_dashboard():
                 "hits": item.hits
 
             })
-            active_sessions_last_hour = DecoySession.query.filter(
-    DecoySession.entry_time >= one_hour_ago
-).count()
+            
 
-            login_attempts_last_hour = LoginAttempt.query.filter(
-    LoginAttempt.timestamp >= one_hour_ago
-).count()
-
-            downloads_last_hour = DecoyInteraction.query.filter(
-    DecoyInteraction.action_type == "download",
-    DecoyInteraction.interaction_time >= one_hour_ago
-).count()
-
-            bookmarks_last_hour = DecoyInteraction.query.filter(
-    DecoyInteraction.action_type == "bookmark",
-    DecoyInteraction.interaction_time >= one_hour_ago
-).count()
-
-            page_views_last_hour = DecoyInteraction.query.filter(
-    DecoyInteraction.action_type == "view",
-    DecoyInteraction.interaction_time >= one_hour_ago
-).count()
-
-            alerts_last_hour = RiskEvaluation.query.filter(
-    RiskEvaluation.risk_level == "High Risk",
-    RiskEvaluation.evaluated_at >= one_hour_ago
-).count()
 
    
+        active_sessions_last_hour = DecoySession.query.filter(
+        DecoySession.entry_time >= one_hour_ago
+    ).count()
 
+    login_attempts_last_hour = LoginAttempt.query.filter(
+        LoginAttempt.timestamp >= one_hour_ago
+    ).count()
+
+    downloads_last_hour = DecoyInteraction.query.filter(
+        DecoyInteraction.action_type == "download",
+        DecoyInteraction.interaction_time >= one_hour_ago
+    ).count()
+
+    bookmarks_last_hour = DecoyInteraction.query.filter(
+        DecoyInteraction.action_type == "bookmark",
+        DecoyInteraction.interaction_time >= one_hour_ago
+    ).count()
+
+    page_views_last_hour = DecoyInteraction.query.filter(
+        DecoyInteraction.action_type == "view",
+        DecoyInteraction.interaction_time >= one_hour_ago
+    ).count()
+
+    alerts_last_hour = RiskEvaluation.query.filter(
+        RiskEvaluation.risk_level == "High Risk",
+        RiskEvaluation.evaluated_at >= one_hour_ago
+    ).count()
     return render_template(
         "admin/admin_dashboard.html",
 
