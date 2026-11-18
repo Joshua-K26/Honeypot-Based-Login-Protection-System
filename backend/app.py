@@ -120,7 +120,7 @@ def update_ip_behaviour(
         trust_score = behaviour.trust_score
         if not success:
             print("Failed login attempt, reducing trust score")
-            trust_score -= 5
+            trust_score -= 1
         
         if behaviour.unique_usernames_tested > 5:
             print("Multiple usernames tested, reducing trust score")
@@ -129,7 +129,7 @@ def update_ip_behaviour(
         
         if behaviour.request_rate > 10:
             print("High request rate detected, reducing trust score")
-            trust_score -= 10
+            trust_score -= 1
             print("New trust score after high request rate:", trust_score)
         
         if behaviour.request_interval < 3:
